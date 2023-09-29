@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Coin Listing-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CryptoTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,13 +18,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="h7U-CA-E3u"/>
+                    <navigationItem key="navigationItem" title="Coin Listing" id="h7U-CA-E3u"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2881.679389312977" y="-6.3380281690140849"/>
         </scene>
-        <!--View Controller-->
+        <!--Favorite-->
         <scene sceneID="2qV-0k-cJy">
             <objects>
                 <viewController id="dle-tQ-ejV" sceneMemberID="viewController">
@@ -34,13 +34,13 @@
                         <viewLayoutGuide key="safeArea" id="b0p-7y-8Xh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dSr-2i-Q56"/>
+                    <navigationItem key="navigationItem" title="Favorite" id="dSr-2i-Q56"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gbH-gN-uPR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1956.4885496183206" y="703.52112676056345"/>
         </scene>
-        <!--View Controller-->
+        <!--Your Investment-->
         <scene sceneID="8zc-fp-swd">
             <objects>
                 <viewController id="NX4-Ae-Rhg" sceneMemberID="viewController">
@@ -50,17 +50,17 @@
                         <viewLayoutGuide key="safeArea" id="SCI-5e-cJ5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cxw-TZ-Gin"/>
+                    <navigationItem key="navigationItem" title="Your Investment" id="cxw-TZ-Gin"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7dh-dp-zCi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1956.4885496183206" y="1438.7323943661972"/>
         </scene>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="HtL-5f-4FO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0wA-Rl-Npt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="WTG-Zd-kkI"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="WTG-Zd-kkI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Ef-WT-OfY">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -75,11 +75,11 @@
             </objects>
             <point key="canvasLocation" x="1956.4885496183206" y="-6.3380281690140849"/>
         </scene>
-        <!--Item-->
+        <!--Favorite-->
         <scene sceneID="gGT-Rp-yq3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aiC-kC-zGt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Dkl-55-qQN"/>
+                    <tabBarItem key="tabBarItem" title="Favorite" image="heart" catalog="system" id="Dkl-55-qQN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="g77-29-wiJ">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -94,11 +94,11 @@
             </objects>
             <point key="canvasLocation" x="1029.7709923664122" y="703.52112676056345"/>
         </scene>
-        <!--Item-->
+        <!--Investment-->
         <scene sceneID="w20-mH-86x">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="elK-Mi-fXy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="RrK-8n-kZN"/>
+                    <tabBarItem key="tabBarItem" title="Investment" image="chart.bar" catalog="system" id="RrK-8n-kZN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3uV-Bm-kSn">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -119,6 +119,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="WhD-2c-fpf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Oqv-6B-Zl8">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -134,6 +135,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chart.bar" catalog="system" width="128" height="89"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="house" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
