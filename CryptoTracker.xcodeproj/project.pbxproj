@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27880B172AD096BE0092062B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B162AD096BE0092062B /* API.swift */; };
+		27880B192AD097EF0092062B /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B182AD097EF0092062B /* Coin.swift */; };
+		27880B1B2AD0A08A0092062B /* SetFetchTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B1A2AD0A08A0092062B /* SetFetchTime.swift */; };
 		27BCA2892AC6F5D700185204 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BCA2882AC6F5D700185204 /* AppDelegate.swift */; };
 		27BCA28B2AC6F5D700185204 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */; };
 		27BCA28D2AC6F5D700185204 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BCA28C2AC6F5D700185204 /* ViewController.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27880B162AD096BE0092062B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		27880B182AD097EF0092062B /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		27880B1A2AD0A08A0092062B /* SetFetchTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFetchTime.swift; sourceTree = "<group>"; };
 		27BCA2852AC6F5D700185204 /* CryptoTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27BCA2882AC6F5D700185204 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +65,9 @@
 				27BCA2882AC6F5D700185204 /* AppDelegate.swift */,
 				27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */,
 				27BCA28C2AC6F5D700185204 /* ViewController.swift */,
+				27880B1A2AD0A08A0092062B /* SetFetchTime.swift */,
+				27880B162AD096BE0092062B /* API.swift */,
+				27880B182AD097EF0092062B /* Coin.swift */,
 				27BCA28E2AC6F5D700185204 /* Main.storyboard */,
 				27BCA2912AC6F5D800185204 /* Assets.xcassets */,
 				27BCA2932AC6F5D800185204 /* LaunchScreen.storyboard */,
@@ -140,6 +149,9 @@
 			files = (
 				27BCA28D2AC6F5D700185204 /* ViewController.swift in Sources */,
 				27BCA2892AC6F5D700185204 /* AppDelegate.swift in Sources */,
+				27880B172AD096BE0092062B /* API.swift in Sources */,
+				27880B192AD097EF0092062B /* Coin.swift in Sources */,
+				27880B1B2AD0A08A0092062B /* SetFetchTime.swift in Sources */,
 				27BCA28B2AC6F5D700185204 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
