@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="coinListItem" rowHeight="110" id="ZIS-fn-k4K">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="coinListItem" rowHeight="110" id="ZIS-fn-k4K" customClass="CustomCoinTableViewCell" customModule="CryptoTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZIS-fn-k4K" id="ylb-oZ-FgB">
@@ -74,6 +74,12 @@
                                                 <constraint firstAttribute="trailing" secondItem="EoJ-Tg-EQ1" secondAttribute="trailing" constant="5" id="nAH-fU-zQs"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="coin24ChangeLabel" destination="Zqh-7Y-pYN" id="HNL-Bq-SzT"/>
+                                            <outlet property="coinImageView" destination="qdd-2y-owr" id="1zh-vs-2qg"/>
+                                            <outlet property="coinNameLabel" destination="dvG-JS-PaU" id="hWa-OQ-T9B"/>
+                                            <outlet property="coinSymbolLabel" destination="8lB-UY-Z7B" id="pSE-dd-cgx"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

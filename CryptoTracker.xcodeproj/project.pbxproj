@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2747FE262AD313E8002A08A5 /* CustomCoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */; };
 		27880B172AD096BE0092062B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B162AD096BE0092062B /* API.swift */; };
 		27880B192AD097EF0092062B /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B182AD097EF0092062B /* Coin.swift */; };
 		27880B1B2AD0A08A0092062B /* SetFetchTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B1A2AD0A08A0092062B /* SetFetchTime.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoinTableViewCell.swift; sourceTree = "<group>"; };
 		27880B162AD096BE0092062B /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		27880B182AD097EF0092062B /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 		27880B1A2AD0A08A0092062B /* SetFetchTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFetchTime.swift; sourceTree = "<group>"; };
@@ -43,6 +45,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2747FE272AD314E0002A08A5 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */,
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		2747FE282AD314EE002A08A5 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				27BCA28E2AC6F5D700185204 /* Main.storyboard */,
+				27BCA2932AC6F5D800185204 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		27880B1C2AD0A7AE0092062B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				27880B1A2AD0A08A0092062B /* SetFetchTime.swift */,
+				27880B162AD096BE0092062B /* API.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		27BCA27C2AC6F5D700185204 = {
 			isa = PBXGroup;
 			children = (
@@ -65,12 +93,11 @@
 				27BCA2882AC6F5D700185204 /* AppDelegate.swift */,
 				27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */,
 				27BCA28C2AC6F5D700185204 /* ViewController.swift */,
-				27880B1A2AD0A08A0092062B /* SetFetchTime.swift */,
-				27880B162AD096BE0092062B /* API.swift */,
+				27880B1C2AD0A7AE0092062B /* Utility */,
 				27880B182AD097EF0092062B /* Coin.swift */,
-				27BCA28E2AC6F5D700185204 /* Main.storyboard */,
+				2747FE282AD314EE002A08A5 /* Storyboard */,
+				2747FE272AD314E0002A08A5 /* CustomCells */,
 				27BCA2912AC6F5D800185204 /* Assets.xcassets */,
-				27BCA2932AC6F5D800185204 /* LaunchScreen.storyboard */,
 				27BCA2962AC6F5D800185204 /* Info.plist */,
 			);
 			path = CryptoTracker;
@@ -149,6 +176,7 @@
 			files = (
 				27BCA28D2AC6F5D700185204 /* ViewController.swift in Sources */,
 				27BCA2892AC6F5D700185204 /* AppDelegate.swift in Sources */,
+				2747FE262AD313E8002A08A5 /* CustomCoinTableViewCell.swift in Sources */,
 				27880B172AD096BE0092062B /* API.swift in Sources */,
 				27880B192AD097EF0092062B /* Coin.swift in Sources */,
 				27880B1B2AD0A08A0092062B /* SetFetchTime.swift in Sources */,

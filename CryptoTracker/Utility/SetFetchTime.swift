@@ -14,12 +14,10 @@ struct PreviousFetchTime{
     func setFetchTime(){
         timeUserDefault.setValue(previousFetchDate, forKey: previousFetch)
         timeUserDefault.synchronize()
-        print("Time Set")
     }
     func getFetchTime(){
-        print("Time get")
         if let storedDate = timeUserDefault.object(forKey: previousFetch) as? Date {
-            // Use storedDate as the current date
+            // Use storedDate as the previous fetched date
             print("Stored date: \(storedDate)")
         }
     }
