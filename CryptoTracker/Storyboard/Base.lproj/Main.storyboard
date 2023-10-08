@@ -94,6 +94,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Coin Listing" id="h7U-CA-E3u"/>
+                    <connections>
+                        <outlet property="coinListTableView" destination="30o-ZU-wNh" id="RhX-R8-Rhw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

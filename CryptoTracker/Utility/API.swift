@@ -11,3 +11,9 @@ enum API: String{
     case httpHeader = "X-CMC_PRO_API_KEY"
     case coinList = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 }
+enum CoinDataSource{
+    case CoinList
+}
+enum Identifiers: String{
+    case coinListCell = "coinListItem"
+}

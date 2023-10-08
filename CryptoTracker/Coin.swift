@@ -12,4 +12,11 @@ struct CoinListing: Codable, Hashable{
 struct Coin: Codable, Hashable{
     var name: String
     var symbol: String
+    var quote: Usd
+}
+struct Usd: Codable, Hashable{
+    var USD: Change
+}
+struct Change: Codable, Hashable{
+    var percent_change_24h: Double
 }

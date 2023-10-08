@@ -11,16 +11,40 @@ class ViewController: UIViewController {
     
     //MARK: - Property
     var coins = [Coin]()
+    
+    //MARK: - Outlets
+    @IBOutlet var coinListTableView: UITableView!
+    
+    var coinDataSource: UITableViewDiffableDataSource<CoinDataSource,Coin>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        coinDataSource = UITableViewDiffableDataSource(tableView: coinListTableView){
+            tableView,indexPath,item in
+            let newCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.coinListCell.rawValue, for: indexPath) as! CustomCoinTableViewCell
+            newCell.coinNameLabel.text = item.name
+            newCell.coinSymbolLabel.text = item.symbol
+            newCell.coin24ChangeLabel.text = "24Hour Change: \(String(format: "%.2f", item.quote.USD.percent_change_24h))%"
+            return newCell
+        }
+        
         fetchCoinsList()
         let fetchTime = PreviousFetchTime()
         fetchTime.getFetchTime()
+        
     }
 
     //MARK: - Methods
+    func createSnapshot(){
+        var snapshot = NSDiffableDataSourceSnapshot<CoinDataSource, Coin>()
+        snapshot.appendSections([.CoinList])
+        snapshot.appendItems(coins)
+        snapshot.reloadSections([.CoinList])
+        coinDataSource.apply(snapshot)
+    }
+    
     func fetchCoinsList(){
         guard let url = URL(string: API.coinList.rawValue) else {return}
         var coinDataRequest = URLRequest(url: url)
@@ -45,6 +69,9 @@ class ViewController: UIViewController {
                 } catch {
                     print("Unknown error has occurred \(error.localizedDescription)")
                 }
+            }
+            DispatchQueue.main.async {
+                self.createSnapshot()
             }
         }
         coinDataTask.resume()
