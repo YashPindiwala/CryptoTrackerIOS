@@ -2,7 +2,7 @@
 //  CoinList+CoreDataProperties.swift
 //  CryptoTracker
 //
-//  Created by yash pindiwala on 2023-10-11.
+//  Created by yash pindiwala on 2023-10-12.
 //
 //
 
@@ -17,8 +17,7 @@ extension CoinList {
     }
 
     @NSManaged public var coin_Id: Int32
-    @NSManaged public var desc: String
-    @NSManaged public var image: String
+    @NSManaged public var desc: String?
     @NSManaged public var name: String
     @NSManaged public var percent_change_24h: Double
     @NSManaged public var symbol: String

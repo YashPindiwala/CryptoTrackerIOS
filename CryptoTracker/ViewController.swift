@@ -6,16 +6,19 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
     
     //MARK: - Property
     var coins = [Coin]()
+    var coinsList = [CoinList]()
+    var coreDataStack = CoreDataStack(dataModelName: "CryptoTracker")
     
     //MARK: - Outlets
     @IBOutlet var coinListTableView: UITableView!
     
-    var coinDataSource: UITableViewDiffableDataSource<CoinDataSource,Coin>!
+    var coinDataSource: UITableViewDiffableDataSource<CoinDataSource,CoinList>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +29,8 @@ class ViewController: UIViewController {
             let newCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.coinListCell.rawValue, for: indexPath) as! CustomCoinTableViewCell
             newCell.coinNameLabel.text = item.name
             newCell.coinSymbolLabel.text = item.symbol
-            newCell.coin24ChangeLabel.text = "24Hour Change: \(String(format: "%.2f", item.quote.USD.percent_change_24h))%"
-            self.fetchImage(coinId: item.id, cell: newCell)
+            newCell.coin24ChangeLabel.text = "24Hour Change: \(String(format: "%.2f", item.percent_change_24h))%"
+            self.fetchImage(coinId: Int(item.coin_Id), cell: newCell)
             return newCell
         }
         
@@ -39,10 +42,10 @@ class ViewController: UIViewController {
 
     //MARK: - Methods
     func createSnapshot(){
-        var snapshot = NSDiffableDataSourceSnapshot<CoinDataSource, Coin>()
+        var snapshot = NSDiffableDataSourceSnapshot<CoinDataSource, CoinList>()
         snapshot.appendSections([.CoinList])
-        snapshot.appendItems(coins)
-        snapshot.reloadSections([.CoinList])
+        snapshot.appendItems(coinsList)
+        snapshot.reloadItems(coinsList)
         coinDataSource.apply(snapshot)
     }
     
@@ -61,6 +64,15 @@ class ViewController: UIViewController {
                     let jsonDecoder = JSONDecoder()
                     let resultCoins = try jsonDecoder.decode(CoinListing.self, from: data)
                     self.coins = resultCoins.data
+                    for coin in self.coins{
+                        let insertCoin = CoinList(context: self.coreDataStack.managedContext)
+                        insertCoin.coin_Id = Int32(coin.id)
+                        insertCoin.name = coin.name
+                        insertCoin.symbol = coin.symbol
+                        insertCoin.percent_change_24h = coin.quote.USD.percent_change_24h
+                    }
+                    self.coreDataStack.saveContext()
+                    self.fetchCoinsFromCoreData()
                 } catch DecodingError.valueNotFound(let error, let message){
                     print("Value is missing: \(error) \(message.debugDescription)")
                 } catch DecodingError.typeMismatch(let error, let message){
@@ -71,13 +83,27 @@ class ViewController: UIViewController {
                     print("Unknown error has occurred \(error.localizedDescription)")
                 }
             }
-            DispatchQueue.main.async {
-                self.createSnapshot()
-            }
+//            DispatchQueue.main.async {
+//                self.createSnapshot()
+//            }
         }
-        coinDataTask.resume()
         let fetchTime = PreviousFetchTime()
         fetchTime.setFetchTime()
+        coinDataTask.resume()
+    }
+    
+    func fetchCoinsFromCoreData(){
+        let fetchRequest: NSFetchRequest<CoinList> = CoinList.fetchRequest()
+//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            print("in fetch coin from core data")
+            coinsList = try coreDataStack.managedContext.fetch(fetchRequest)
+            self.createSnapshot()
+        } catch {
+            print("There was an error trying to fetch the lists - \(error.localizedDescription)")
+        }
+        
     }
     
     func fetchImage(coinId: Int, cell: CustomCoinTableViewCell){
@@ -89,7 +115,7 @@ class ViewController: UIViewController {
             
             if error == nil, let url = url, let data = try?Data(contentsOf: url), let image = UIImage(data: data){
                 // if there is no error, there is data, the data can be converted to UIImage object then set image for the image view for the cell which is passed.
-                DispatchQueue.main.sync { // the maiin thread should be used to update UI changes
+                DispatchQueue.main.sync { // the main thread should be used to update UI changes
                     cell.coinImageView.image = image
                 }
             } else {
