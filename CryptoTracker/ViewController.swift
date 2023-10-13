@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var coins = [Coin]()
     var coinsList = [CoinList]()
     var coreDataStack = CoreDataStack(dataModelName: "CryptoTracker")
+    var fetchTime: PreviousFetchTime!
     
     //MARK: - Outlets
     @IBOutlet var coinListTableView: UITableView!
@@ -23,6 +24,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        fetchTime = PreviousFetchTime()
         
         coinDataSource = UITableViewDiffableDataSource(tableView: coinListTableView){
             tableView,indexPath,item in
@@ -34,10 +37,11 @@ class ViewController: UIViewController {
             return newCell
         }
         
-        fetchCoinsList()
-        let fetchTime = PreviousFetchTime()
-        fetchTime.getFetchTime()
-        
+        if (fetchTime.isBeforeOrEqual20Minutes()){
+            fetchCoinsList()
+        } else {
+            fetchCoinsFromCoreData()
+        }
     }
 
     //MARK: - Methods
@@ -50,6 +54,7 @@ class ViewController: UIViewController {
     }
     
     func fetchCoinsList(){
+        print("Fetch from API")
         guard let url = URL(string: API.coinList.rawValue) else {return}
         var coinDataRequest = URLRequest(url: url)
         coinDataRequest.setValue(API.key.rawValue, forHTTPHeaderField: API.httpHeader.rawValue)
@@ -83,21 +88,17 @@ class ViewController: UIViewController {
                     print("Unknown error has occurred \(error.localizedDescription)")
                 }
             }
-//            DispatchQueue.main.async {
-//                self.createSnapshot()
-//            }
+            self.fetchTime.setFetchTime()
         }
-        let fetchTime = PreviousFetchTime()
-        fetchTime.setFetchTime()
         coinDataTask.resume()
     }
     
     func fetchCoinsFromCoreData(){
+        print("Fetch from CoreData")
         let fetchRequest: NSFetchRequest<CoinList> = CoinList.fetchRequest()
 //        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
 //        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            print("in fetch coin from core data")
             coinsList = try coreDataStack.managedContext.fetch(fetchRequest)
             self.createSnapshot()
         } catch {

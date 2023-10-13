@@ -8,17 +8,45 @@
 import Foundation
 struct PreviousFetchTime{
     let previousFetch = "PreviousFetchDate"
+    let initialLaunch = "InitialLaunch"
     let timeUserDefault = UserDefaults.standard
-    let previousFetchDate = Date()
     
     func setFetchTime(){
-        timeUserDefault.setValue(previousFetchDate, forKey: previousFetch)
+        timeUserDefault.setValue(Date(), forKey: previousFetch)
         timeUserDefault.synchronize()
     }
-    func getFetchTime(){
-        if let storedDate = timeUserDefault.object(forKey: previousFetch) as? Date {
+    private func getFetchTime() -> Date{
+        guard let storedDate = timeUserDefault.object(forKey: previousFetch) as? Date else { return Date()}
+        return storedDate
             // Use storedDate as the previous fetched date
-            print("Stored date: \(storedDate)")
-        }
     }
+    func isBeforeOrEqual20Minutes() -> Bool{
+        let calendar = Calendar.current
+        var status = false
+        // Create a time 20 minutes ago from the current time
+        if let twentyMinutesAgo = calendar.date(byAdding: .minute, value: -20, to: Date()) {
+            let dateToCheck = getFetchTime() // The date you to compare
+
+            if dateToCheck.compare(twentyMinutesAgo) == .orderedAscending {
+                print("true 20 min or more before")
+                status = true
+            } else {
+                print("false not before 20 min")
+                status = false
+            }
+        }
+        if !isAppAlreadyLaunchedOnce(){
+            return true
+        }
+        return status
+    }
+    private func isAppAlreadyLaunchedOnce()->Bool{
+        if timeUserDefault.string(forKey: initialLaunch) != nil{
+                return true
+            }else{
+                timeUserDefault.set(true, forKey: initialLaunch)
+                return false
+            }
+        }
 }
+
