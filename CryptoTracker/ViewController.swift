@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
         fetchTime = PreviousFetchTime()
         
         coinDataSource = UITableViewDiffableDataSource(tableView: coinListTableView){
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
             return newCell
         }
         
-        if (fetchTime.isBeforeOrEqual20Minutes()){
+        if fetchTime.isBeforeOrEqual20Minutes(){
             fetchCoinsList()
         } else {
             fetchCoinsFromCoreData()
@@ -127,6 +127,12 @@ class ViewController: UIViewController {
             }
         }
         imageTask.resume()// resuming the imageTask, as it is by default in postponed state.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? DetailViewController else { return }
+        guard let index = coinListTableView.indexPathForSelectedRow, let itemToPass = coinDataSource.itemIdentifier(for: index) else { return }
+        vc.passedCoin = itemToPass
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27045E092AD97E86005C5491 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27045E082AD97E86005C5491 /* DetailViewController.swift */; };
 		2747FE262AD313E8002A08A5 /* CustomCoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */; };
 		27880B172AD096BE0092062B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B162AD096BE0092062B /* Utility.swift */; };
 		27880B192AD097EF0092062B /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B182AD097EF0092062B /* Coin.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27045E082AD97E86005C5491 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Storyboard/DetailViewController.swift; sourceTree = "<group>"; };
 		2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoinTableViewCell.swift; sourceTree = "<group>"; };
 		27880B162AD096BE0092062B /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		27880B182AD097EF0092062B /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		27BCA2872AC6F5D700185204 /* CryptoTracker */ = {
 			isa = PBXGroup;
 			children = (
+				27045E082AD97E86005C5491 /* DetailViewController.swift */,
 				27C0405B2AD78F050022DAA7 /* CoreData */,
 				27BCA2882AC6F5D700185204 /* AppDelegate.swift */,
 				27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */,
@@ -197,6 +200,7 @@
 				27BCA28D2AC6F5D700185204 /* ViewController.swift in Sources */,
 				27BCA2892AC6F5D700185204 /* AppDelegate.swift in Sources */,
 				2747FE262AD313E8002A08A5 /* CustomCoinTableViewCell.swift in Sources */,
+				27045E092AD97E86005C5491 /* DetailViewController.swift in Sources */,
 				27880B172AD096BE0092062B /* Utility.swift in Sources */,
 				27BBE2842AD7904B001804BC /* CoreDataStack.swift in Sources */,
 				27880B192AD097EF0092062B /* Coin.swift in Sources */,
