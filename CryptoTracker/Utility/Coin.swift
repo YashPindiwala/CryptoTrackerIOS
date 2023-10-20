@@ -21,3 +21,26 @@ struct Usd: Codable, Hashable{
 struct Change: Codable, Hashable{
     var percent_change_24h: Double
 }
+
+struct CryptoData: Codable {
+    let id: Int
+    let name: String
+    let symbol: String
+    let category: String
+    let description: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case symbol
+        case category
+        case description
+    }
+}
+
+struct CryptoResponse: Codable {
+    let data: [String: CryptoData]
+}
+
+
+

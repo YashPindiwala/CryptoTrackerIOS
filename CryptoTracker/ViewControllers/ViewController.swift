@@ -78,6 +78,7 @@ class ViewController: UIViewController {
                     }
                     self.coreDataStack.saveContext()
                     self.fetchCoinsFromCoreData()
+                    self.fetchTime.setFetchTime()
                 } catch DecodingError.valueNotFound(let error, let message){
                     print("Value is missing: \(error) \(message.debugDescription)")
                 } catch DecodingError.typeMismatch(let error, let message){
@@ -88,7 +89,6 @@ class ViewController: UIViewController {
                     print("Unknown error has occurred \(error.localizedDescription)")
                 }
             }
-            self.fetchTime.setFetchTime()
         }
         coinDataTask.resume()
     }

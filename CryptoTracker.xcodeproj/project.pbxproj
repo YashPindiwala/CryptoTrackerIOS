@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		27045E082AD97E86005C5491 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = Storyboard/DetailViewController.swift; sourceTree = "<group>"; };
+		27045E082AD97E86005C5491 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoinTableViewCell.swift; sourceTree = "<group>"; };
 		27880B162AD096BE0092062B /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		27880B182AD097EF0092062B /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
@@ -55,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27045E0A2AD997BB005C5491 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				27045E082AD97E86005C5491 /* DetailViewController.swift */,
+				27BCA28C2AC6F5D700185204 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		2747FE272AD314E0002A08A5 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +84,7 @@
 		27880B1C2AD0A7AE0092062B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				27880B182AD097EF0092062B /* Coin.swift */,
 				27880B1A2AD0A08A0092062B /* SetFetchTime.swift */,
 				27880B162AD096BE0092062B /* Utility.swift */,
 			);
@@ -100,13 +110,11 @@
 		27BCA2872AC6F5D700185204 /* CryptoTracker */ = {
 			isa = PBXGroup;
 			children = (
-				27045E082AD97E86005C5491 /* DetailViewController.swift */,
+				27045E0A2AD997BB005C5491 /* ViewControllers */,
 				27C0405B2AD78F050022DAA7 /* CoreData */,
 				27BCA2882AC6F5D700185204 /* AppDelegate.swift */,
 				27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */,
-				27BCA28C2AC6F5D700185204 /* ViewController.swift */,
 				27880B1C2AD0A7AE0092062B /* Utility */,
-				27880B182AD097EF0092062B /* Coin.swift */,
 				2747FE282AD314EE002A08A5 /* Storyboard */,
 				2747FE272AD314E0002A08A5 /* CustomCells */,
 				27BCA2912AC6F5D800185204 /* Assets.xcassets */,

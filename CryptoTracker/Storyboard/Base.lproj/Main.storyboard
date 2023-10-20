@@ -170,6 +170,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="gR4-zD-E0M"/>
                     <connections>
+                        <outlet property="coinDescriptionTextView" destination="g7o-U9-dQP" id="t6f-e5-FSn"/>
                         <outlet property="coinImageView" destination="g5U-bd-obd" id="ejn-QR-f0T"/>
                     </connections>
                 </viewController>
