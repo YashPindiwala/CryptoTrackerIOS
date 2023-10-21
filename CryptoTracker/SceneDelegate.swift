@@ -16,7 +16,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        let coreDataStack = CoreDataStack(dataModelName: "CryptoTracker") // sharing a single object around the application
         guard let _ = (scene as? UIWindowScene) else { return }
+        guard let rootVc = window?.rootViewController as? UITabBarController else {return}
+        guard let nav1 = rootVc.viewControllers?[0] as? UINavigationController else {return}
+        guard let view1 = nav1.topViewController as? ViewController else {return} // Main page
+        view1.coreDataStack = coreDataStack
+        guard let nav2 = rootVc.viewControllers?[1] as? UINavigationController else {return}
+        guard let view2 = nav2.topViewController as? FavoriteViewController else {return} // Favorite page
+        view2.coreDataStack = coreDataStack
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

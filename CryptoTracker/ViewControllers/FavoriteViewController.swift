@@ -8,6 +8,9 @@
 import UIKit
 
 class FavoriteViewController: UIViewController {
+    
+    //MARK: - Property
+    var coreDataStack: CoreDataStack!
 
     override func viewDidLoad() {
         super.viewDidLoad()

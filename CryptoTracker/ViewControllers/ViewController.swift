@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     //MARK: - Property
     var coins = [Coin]()
     var coinsListArray = [CoinList]()
-    var coreDataStack = CoreDataStack(dataModelName: "CryptoTracker")
+    var coreDataStack: CoreDataStack!
     var fetchTime: PreviousFetchTime!
     
     //MARK: - Outlets
