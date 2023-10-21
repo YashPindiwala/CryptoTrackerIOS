@@ -17,11 +17,32 @@ class DetailViewController: UIViewController {
     //MARK: - Outlets
     @IBOutlet var coinImageView: UIImageView!
     @IBOutlet var coinDescriptionTextView: UITextView!
+    @IBOutlet var favoriteButton: UIBarButtonItem!
+    
+    //MARK: - Actions
+    @IBAction func favoriteButtonAction(_ sender: UIBarButtonItem) {
+        if !isAlreadyFavorite(coin_id: passedCoin.coin_Id){
+            addToFavorite(coin_id: passedCoin.coin_Id, symbol: passedCoin.description)
+            favoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            let ac = UIAlertController(title: "Already Favorited!", message: "\(passedCoin.name) is already in favorites.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel))
+            present(ac, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        guard let passedCoin = passedCoin else {return}
         navigationItem.title = passedCoin.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: nil, action: nil)
+        
+        if isAlreadyFavorite(coin_id: passedCoin.coin_Id){
+            favoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            favoriteButton.image = UIImage(systemName: "heart")
+        }
+        
         fetchImage(coinId: Int(passedCoin.coin_Id))
         
         if checkIfDescAvailable(for: passedCoin.coin_Id){
@@ -87,6 +108,29 @@ class DetailViewController: UIViewController {
             }
         }
         imageTask.resume()// resuming the imageTask, as it is by default in postponed state.
+    }
+    
+    //MARK: - Methods related to CoreData
+    
+    func addToFavorite(coin_id id: Int32, symbol: String){
+        let favoriteCoin = FavoriteList(context: coreDataStack.managedContext)
+        favoriteCoin.coin_Id = id
+        favoriteCoin.symbol = symbol
+        coreDataStack.saveContext()
+    }
+    
+    func isAlreadyFavorite(coin_id id: Int32) -> Bool{
+        let fetchRequest: NSFetchRequest<FavoriteList> = FavoriteList.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id)
+        do{
+            let request = try coreDataStack.managedContext.fetch(fetchRequest)
+            if request.first != nil{
+                return true
+            }
+        }catch{
+            print("There was an error fetching: \(error.localizedDescription)")
+        }
+        return false
     }
     
     func checkIfDescAvailable(for id: Int32) -> Bool{

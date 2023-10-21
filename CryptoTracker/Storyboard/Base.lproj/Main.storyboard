@@ -168,10 +168,17 @@
                             <constraint firstItem="C4H-SX-UK0" firstAttribute="top" secondItem="UFI-Wo-xZU" secondAttribute="top" id="lxy-xF-FP5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="gR4-zD-E0M"/>
+                    <navigationItem key="navigationItem" id="gR4-zD-E0M">
+                        <barButtonItem key="rightBarButtonItem" image="heart" catalog="system" id="Yv5-T1-N40">
+                            <connections>
+                                <action selector="favoriteButtonAction:" destination="6WO-nZ-2w8" id="GkL-DD-0uC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="coinDescriptionTextView" destination="g7o-U9-dQP" id="t6f-e5-FSn"/>
                         <outlet property="coinImageView" destination="g5U-bd-obd" id="ejn-QR-f0T"/>
+                        <outlet property="favoriteButton" destination="Yv5-T1-N40" id="coa-C7-xRU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RSX-w6-uEn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
