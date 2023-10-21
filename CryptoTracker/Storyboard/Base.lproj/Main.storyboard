@@ -189,7 +189,7 @@
         <!--Favorite-->
         <scene sceneID="2qV-0k-cJy">
             <objects>
-                <viewController id="dle-tQ-ejV" sceneMemberID="viewController">
+                <viewController id="dle-tQ-ejV" customClass="FavoriteViewController" customModule="CryptoTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PKZ-f0-HeZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -207,7 +207,7 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favoriteCell" id="da4-FA-iG3">
                                         <rect key="frame" x="0.0" y="0.0" width="181.33333333333337" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FvB-sv-KSr">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FvB-sv-KSr" customClass="FavoriteListCollectionViewCell" customModule="CryptoTracker" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="181.33333333333337" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -236,6 +236,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="xF0-IX-3R3" secondAttribute="bottom" id="gaL-eG-lhR"/>
                                                 <constraint firstItem="xF0-IX-3R3" firstAttribute="leading" secondItem="FvB-sv-KSr" secondAttribute="leading" id="qLg-Cz-Ilr"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="coinImageView" destination="6Q4-JJ-53n" id="1M6-9X-bo8"/>
+                                                <outlet property="coinSymbolLabel" destination="WeU-Ee-7Lx" id="hIN-ZJ-e8h"/>
+                                            </connections>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                 </cells>
