@@ -133,6 +133,7 @@ class ViewController: UIViewController {
         guard let vc = segue.destination as? DetailViewController else { return }
         guard let index = coinListTableView.indexPathForSelectedRow, let itemToPass = coinDataSource.itemIdentifier(for: index) else { return }
         vc.passedCoin = itemToPass
+        vc.coreDataStack = coreDataStack
     }
 }
 
