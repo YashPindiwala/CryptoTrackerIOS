@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     //MARK: - Property
     var coins = [Coin]()
-    var coinsList = [CoinList]()
+    var coinsListArray = [CoinList]()
     var coreDataStack = CoreDataStack(dataModelName: "CryptoTracker")
     var fetchTime: PreviousFetchTime!
     
@@ -48,8 +48,8 @@ class ViewController: UIViewController {
     func createSnapshot(){
         var snapshot = NSDiffableDataSourceSnapshot<CoinDataSource, CoinList>()
         snapshot.appendSections([.CoinList])
-        snapshot.appendItems(coinsList)
-        snapshot.reloadItems(coinsList)
+        snapshot.appendItems(coinsListArray)
+        snapshot.reloadItems(coinsListArray)
         coinDataSource.apply(snapshot)
     }
     
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
 //        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
 //        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            coinsList = try coreDataStack.managedContext.fetch(fetchRequest)
+            coinsListArray = try coreDataStack.managedContext.fetch(fetchRequest)
             self.createSnapshot()
         } catch {
             print("There was an error trying to fetch the lists - \(error.localizedDescription)")
