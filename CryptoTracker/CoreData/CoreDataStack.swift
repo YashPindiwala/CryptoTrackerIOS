@@ -14,14 +14,14 @@ class CoreDataStack{
         self.dataModelName = dataModelName
     }
     lazy var persistentContainer: NSPersistentContainer = {
-        let continer = NSPersistentContainer(name: self.dataModelName)
-        continer.loadPersistentStores(){
-            storeDescription,error in
-            if let error = error as NSError?{
-                fatalError("Unresolved error occured: \(error) - \(error.userInfo)")
+        let container = NSPersistentContainer(name: self.dataModelName)
+        container.loadPersistentStores { storeDescription, error in
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            if let error = error {
+                print("Unresolved error \(error)")
             }
         }
-        return continer
+        return container
     }()
     lazy var managedContext: NSManagedObjectContext = {
         return self.persistentContainer.viewContext

@@ -6,6 +6,11 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="percent_change_24h" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="symbol" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="symbol"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="FavoriteList" representedClassName="FavoriteList" syncable="YES">
         <attribute name="coin_Id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

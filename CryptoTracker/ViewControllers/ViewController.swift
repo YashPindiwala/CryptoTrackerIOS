@@ -96,8 +96,8 @@ class ViewController: UIViewController {
     func fetchCoinsFromCoreData(){
         print("Fetch from CoreData")
         let fetchRequest: NSFetchRequest<CoinList> = CoinList.fetchRequest()
-//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
             coinsListArray = try coreDataStack.managedContext.fetch(fetchRequest)
             self.createSnapshot()
