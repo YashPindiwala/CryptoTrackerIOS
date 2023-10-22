@@ -40,7 +40,7 @@ struct PreviousFetchTime{
         }
         return status
     }
-    private func isAppAlreadyLaunchedOnce()->Bool{
+    public func isAppAlreadyLaunchedOnce()->Bool{
         if timeUserDefault.string(forKey: initialLaunch) != nil{
                 return true
             }else{
@@ -49,4 +49,3 @@ struct PreviousFetchTime{
             }
         }
 }
-

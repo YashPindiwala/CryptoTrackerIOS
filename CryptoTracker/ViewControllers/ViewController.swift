@@ -15,15 +15,20 @@ class ViewController: UIViewController {
     var coinsListArray = [CoinList]()
     var coreDataStack: CoreDataStack!
     var fetchTime: PreviousFetchTime!
+    let refreshControl = UIRefreshControl()
+    var coinDataSource: UITableViewDiffableDataSource<CoinDataSource,CoinList>!
     
     //MARK: - Outlets
     @IBOutlet var coinListTableView: UITableView!
-    
-    var coinDataSource: UITableViewDiffableDataSource<CoinDataSource,CoinList>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        coinListTableView.addSubview(refreshControl)
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         fetchTime = PreviousFetchTime()
         
@@ -37,14 +42,25 @@ class ViewController: UIViewController {
             return newCell
         }
         
+        if fetchTime.isAppAlreadyLaunchedOnce(){ // {true} if app launched previously else {false}
+            fetchCoinsFromCoreData() // if it's not first launch then load data from Core Data
+        }else{
+            fetchCoinsList() // on first launch of app load data from API
+        }
+    }
+
+
+    //MARK: - Methods
+    
+    @objc func refresh(_ sender: AnyObject) {
+       // Code to refresh table view
         if fetchTime.isBeforeOrEqual20Minutes(){
             fetchCoinsList()
         } else {
             fetchCoinsFromCoreData()
         }
     }
-
-    //MARK: - Methods
+    
     func createSnapshot(){
         var snapshot = NSDiffableDataSourceSnapshot<CoinDataSource, CoinList>()
         snapshot.appendSections([.coinList])
@@ -101,6 +117,9 @@ class ViewController: UIViewController {
         do {
             coinsListArray = try coreDataStack.managedContext.fetch(fetchRequest)
             self.createSnapshot()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
         } catch {
             print("There was an error trying to fetch the lists - \(error.localizedDescription)")
         }
