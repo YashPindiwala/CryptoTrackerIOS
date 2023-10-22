@@ -20,7 +20,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         favoriteDataSource = UICollectionViewDiffableDataSource(collectionView: favoriteCollectionView){
             collectionView,indexPath,item in
             let newCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifiers.favoriteCell.rawValue, for: indexPath) as! FavoriteListCollectionViewCell
