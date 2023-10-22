@@ -11,11 +11,15 @@ enum API: String{
     case httpHeader = "X-CMC_PRO_API_KEY"
     case coinList = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
     case coinDescription = "https://pro-api.coinmarketcap.com/v2/cryptocurrency/info?id="
+    case coinImage128 = "https://s2.coinmarketcap.com/static/img/coins/128x128/"
 }
 enum CoinDataSource{
-    case CoinList
+    case coinList
+}
+enum FavoriteSection{
+    case favorite
 }
 enum Identifiers: String{
     case coinListCell = "coinListItem"
-    case  favoriteCEll = "favoriteCell"
+    case  favoriteCell = "favoriteCell"
 }

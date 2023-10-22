@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     //MARK: - Methods
     func createSnapshot(){
         var snapshot = NSDiffableDataSourceSnapshot<CoinDataSource, CoinList>()
-        snapshot.appendSections([.CoinList])
+        snapshot.appendSections([.coinList])
         snapshot.appendItems(coinsListArray)
         snapshot.reloadItems(coinsListArray)
         coinDataSource.apply(snapshot)
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
     }
     
     func fetchImage(coinId: Int, cell: CustomCoinTableViewCell){
-        var fullURL = "https://s2.coinmarketcap.com/static/img/coins/128x128/" // url for getting image
+        var fullURL = API.coinImage128.rawValue // url for getting image
         fullURL.append("\(coinId).png") // appending the name of the image to get image location on internet
         guard let imagePath = URL(string: fullURL) else {return}
         let imageTask = URLSession.shared.downloadTask(with: imagePath){

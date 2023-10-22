@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
     //MARK: - Actions
     @IBAction func favoriteButtonAction(_ sender: UIBarButtonItem) {
         if !isAlreadyFavorite(coin_id: passedCoin.coin_Id){
-            addToFavorite(coin_id: passedCoin.coin_Id, symbol: passedCoin.description)
+            addToFavorite(coin_id: passedCoin.coin_Id, symbol: passedCoin.symbol)
             favoriteButton.image = UIImage(systemName: "heart.fill")
         } else {
             let ac = UIAlertController(title: "Already Favorited!", message: "\(passedCoin.name) is already in favorites.", preferredStyle: .alert)
@@ -89,7 +89,7 @@ class DetailViewController: UIViewController {
     }
     
     func fetchImage(coinId: Int){
-        var fullURL = "https://s2.coinmarketcap.com/static/img/coins/128x128/" // url for getting image
+        var fullURL = API.coinImage128.rawValue // url for getting image
         fullURL.append("\(coinId).png") // appending the name of the image to get image location on internet
         guard let imagePath = URL(string: fullURL) else {return}
         let imageTask = URLSession.shared.downloadTask(with: imagePath){
@@ -115,6 +115,7 @@ class DetailViewController: UIViewController {
     func addToFavorite(coin_id id: Int32, symbol: String){
         let favoriteCoin = FavoriteList(context: coreDataStack.managedContext)
         favoriteCoin.coin_Id = id
+        print("This is the symbol: \(symbol)")
         favoriteCoin.symbol = symbol
         coreDataStack.saveContext()
     }
@@ -141,8 +142,6 @@ class DetailViewController: UIViewController {
             if let coinToCheck = request.first{
                 if coinToCheck.desc != nil{
                     return true
-                }else{
-                    return false
                 }
             }
         }catch{
