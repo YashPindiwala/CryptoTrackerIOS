@@ -95,7 +95,13 @@
                             <constraint firstItem="30o-ZU-wNh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xzg-ZK-gy9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Coin Listing" id="h7U-CA-E3u"/>
+                    <navigationItem key="navigationItem" title="Coin Listing" id="h7U-CA-E3u">
+                        <barButtonItem key="rightBarButtonItem" image="line.3.horizontal.decrease.circle" catalog="system" id="T0H-o1-SVR">
+                            <connections>
+                                <action selector="filterResultsAction:" destination="BYZ-38-t0r" id="oKz-RO-vIy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="coinListTableView" destination="30o-ZU-wNh" id="RhX-R8-Rhw"/>
                     </connections>
@@ -362,6 +368,7 @@
         <image name="chart.bar" catalog="system" width="128" height="89"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="house" catalog="system" width="128" height="104"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

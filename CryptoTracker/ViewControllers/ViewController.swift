@@ -20,6 +20,27 @@ class ViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet var coinListTableView: UITableView!
+    
+    //MARK: - Action
+    @IBAction func filterResultsAction(_ sender: UIBarButtonItem) {
+        let ac = UIAlertController(title: "Filter", message: nil, preferredStyle: .actionSheet)
+        let filterByName = UIAlertAction(title: "By name", style: .default){_ in 
+            self.fetchCoinsFromCoreData(sort: NSSortDescriptor(key: "name", ascending: true))
+        }
+        let filterByChange1 = UIAlertAction(title: "By change [More to Less]", style: .default){_ in
+            self.fetchCoinsFromCoreData(sort: NSSortDescriptor(key: "percent_change_24h", ascending: false))
+        }
+        let filterByChange2 = UIAlertAction(title: "By change [Less to More]", style: .default){_ in
+            self.fetchCoinsFromCoreData(sort: NSSortDescriptor(key: "percent_change_24h", ascending: true))
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        ac.addAction(filterByName)
+        ac.addAction(filterByChange1)
+        ac.addAction(filterByChange2)
+        ac.addAction(cancel)
+        present(ac, animated: true)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +64,7 @@ class ViewController: UIViewController {
         }
         
         if fetchTime.isAppAlreadyLaunchedOnce(){ // {true} if app launched previously else {false}
-            fetchCoinsFromCoreData() // if it's not first launch then load data from Core Data
+            fetchCoinsFromCoreData(sort: nil) // if it's not first launch then load data from Core Data
         }else{
             fetchCoinsList() // on first launch of app load data from API
         }
@@ -57,7 +78,7 @@ class ViewController: UIViewController {
         if fetchTime.isBeforeOrEqual20Minutes(){
             fetchCoinsList()
         } else {
-            fetchCoinsFromCoreData()
+            fetchCoinsFromCoreData(sort: nil)
         }
     }
     
@@ -93,7 +114,7 @@ class ViewController: UIViewController {
                         insertCoin.percent_change_24h = coin.quote.USD.percent_change_24h
                     }
                     self.coreDataStack.saveContext()
-                    self.fetchCoinsFromCoreData()
+                    self.fetchCoinsFromCoreData(sort: nil)
                     self.fetchTime.setFetchTime()
                 } catch DecodingError.valueNotFound(let error, let message){
                     print("Value is missing: \(error) \(message.debugDescription)")
@@ -109,11 +130,12 @@ class ViewController: UIViewController {
         coinDataTask.resume()
     }
     
-    func fetchCoinsFromCoreData(){
+    func fetchCoinsFromCoreData(sort: NSSortDescriptor?){
         print("Fetch from CoreData")
         let fetchRequest: NSFetchRequest<CoinList> = CoinList.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        if let sortDescriptor = sort{
+            fetchRequest.sortDescriptors = [sortDescriptor]
+        }
         do {
             coinsListArray = try coreDataStack.managedContext.fetch(fetchRequest)
             self.createSnapshot()
