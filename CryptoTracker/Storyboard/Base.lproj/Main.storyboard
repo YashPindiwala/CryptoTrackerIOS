@@ -125,14 +125,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="666"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g5U-bd-obd">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="250" id="aJa-HM-tbc"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="333"/>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="g7o-U9-dQP">
-                                                <rect key="frame" x="0.0" y="250" width="393" height="416"/>
+                                                <rect key="frame" x="0.0" y="333" width="393" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="JOu-Yu-c5x"/>
+                                                </constraints>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -142,7 +142,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="g5U-bd-obd" secondAttribute="trailing" id="4FR-pN-rpB"/>
-                                            <constraint firstAttribute="bottom" secondItem="g7o-U9-dQP" secondAttribute="bottom" id="5iN-yu-oBM"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="g7o-U9-dQP" secondAttribute="bottom" id="5iN-yu-oBM"/>
                                             <constraint firstItem="g7o-U9-dQP" firstAttribute="leading" secondItem="mor-XO-N93" secondAttribute="leading" id="ANo-SK-6Ci"/>
                                             <constraint firstItem="g5U-bd-obd" firstAttribute="leading" secondItem="mor-XO-N93" secondAttribute="leading" id="Dlt-MI-nyE"/>
                                             <constraint firstAttribute="trailing" secondItem="g7o-U9-dQP" secondAttribute="trailing" id="EpI-0H-oIJ"/>
@@ -156,11 +156,13 @@
                                     <constraint firstItem="pyq-2d-IHC" firstAttribute="bottom" secondItem="mor-XO-N93" secondAttribute="bottom" id="H4h-fB-1bo"/>
                                     <constraint firstItem="mor-XO-N93" firstAttribute="trailing" secondItem="8w5-Zz-sTa" secondAttribute="trailing" constant="329" id="PPL-7p-cv5"/>
                                     <constraint firstItem="mor-XO-N93" firstAttribute="bottom" secondItem="8w5-Zz-sTa" secondAttribute="bottom" constant="385" id="QRK-GY-WiB"/>
+                                    <constraint firstItem="g5U-bd-obd" firstAttribute="leading" secondItem="8w5-Zz-sTa" secondAttribute="leading" id="V8f-fN-uZf"/>
                                     <constraint firstItem="mor-XO-N93" firstAttribute="top" secondItem="pyq-2d-IHC" secondAttribute="top" id="XDg-qf-dvh"/>
                                     <constraint firstItem="mor-XO-N93" firstAttribute="leading" secondItem="8w5-Zz-sTa" secondAttribute="leading" constant="89" id="foX-M5-Lx1"/>
                                     <constraint firstItem="mor-XO-N93" firstAttribute="leading" secondItem="pyq-2d-IHC" secondAttribute="leading" id="hwK-tW-h4z"/>
                                     <constraint firstItem="mor-XO-N93" firstAttribute="top" secondItem="8w5-Zz-sTa" secondAttribute="top" constant="257" id="sVV-i4-3UR"/>
                                     <constraint firstItem="pyq-2d-IHC" firstAttribute="trailing" secondItem="mor-XO-N93" secondAttribute="trailing" id="ttF-An-BuR"/>
+                                    <constraint firstItem="g5U-bd-obd" firstAttribute="height" secondItem="C4H-SX-UK0" secondAttribute="height" multiplier="0.5" id="udJ-W9-FHr"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="8w5-Zz-sTa"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="pyq-2d-IHC"/>
