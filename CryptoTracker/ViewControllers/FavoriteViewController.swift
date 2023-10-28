@@ -31,12 +31,12 @@ class FavoriteViewController: UIViewController {
             return newCell
         }
         favoriteCollectionView.delegate = self
-//        fetchFavoriteList()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         fetchFavoriteList()
     }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        fetchFavoriteList()
+//    }
     
     @objc func longPressHappened(gesture : UILongPressGestureRecognizer!){
         
@@ -51,6 +51,7 @@ class FavoriteViewController: UIViewController {
                 self.deleteFavoriteCoin(item: favoriteCoinToDelete)
             })
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.popoverPresentationController?.sourceView = favoriteCollectionView.cellForItem(at: indexPath)
             present(ac, animated: true)
         }
     }
@@ -116,13 +117,25 @@ extension FavoriteViewController: UICollectionViewDelegate,UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let phoneWidth = view.safeAreaLayoutGuide.layoutFrame.width
-        let cellsInRow: CGFloat = 2.0
-        let totalSpacing:CGFloat = cellsInRow * 10 * 2
-        let itemWidth = (phoneWidth - totalSpacing) / cellsInRow
-        if itemWidth < 0  {
-                return CGSize(width: 0, height: 0) // Replace with a valid minimum size
-            }
-        return CGSize(width: itemWidth, height: itemWidth/2)
+        
+        if self.view.frame.size.width <= 400 {
+            let phoneWidth = view.safeAreaLayoutGuide.layoutFrame.width
+            let cellsInRow: CGFloat = 2.0
+            let totalSpacing:CGFloat = cellsInRow * 10 * 2
+            let itemWidth = (phoneWidth - totalSpacing) / cellsInRow
+            if itemWidth < 0  {
+                    return CGSize(width: 0, height: 0) // Replace with a valid minimum size
+                }
+            return CGSize(width: itemWidth, height: itemWidth/2)
+        }else{
+            let phoneWidth = view.safeAreaLayoutGuide.layoutFrame.width
+            let cellsInRow: CGFloat = 4.0
+            let totalSpacing:CGFloat = cellsInRow * 10 * 2
+            let itemWidth = (phoneWidth - totalSpacing) / cellsInRow
+            if itemWidth < 0  {
+                    return CGSize(width: 0, height: 0) // Replace with a valid minimum size
+                }
+            return CGSize(width: itemWidth, height: itemWidth/2)
+        }
     }
 }

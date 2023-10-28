@@ -104,6 +104,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="coinListTableView" destination="30o-ZU-wNh" id="RhX-R8-Rhw"/>
+                        <outlet property="filterButton" destination="T0H-o1-SVR" id="s4j-10-Cug"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

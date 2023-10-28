@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet var coinListTableView: UITableView!
+    @IBOutlet var filterButton: UIBarButtonItem!
     
     //MARK: - Action
     @IBAction func filterResultsAction(_ sender: UIBarButtonItem) {
@@ -38,6 +39,7 @@ class ViewController: UIViewController {
         ac.addAction(filterByChange1)
         ac.addAction(filterByChange2)
         ac.addAction(cancel)
+        ac.popoverPresentationController?.barButtonItem = filterButton
         present(ac, animated: true)
     }
     
