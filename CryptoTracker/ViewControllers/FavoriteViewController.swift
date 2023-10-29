@@ -31,12 +31,12 @@ class FavoriteViewController: UIViewController {
             return newCell
         }
         favoriteCollectionView.delegate = self
+//        fetchFavoriteList()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         fetchFavoriteList()
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        fetchFavoriteList()
-//    }
     
     @objc func longPressHappened(gesture : UILongPressGestureRecognizer!){
         

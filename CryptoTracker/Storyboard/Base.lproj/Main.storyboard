@@ -96,7 +96,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Coin Listing" id="h7U-CA-E3u">
-                        <barButtonItem key="rightBarButtonItem" image="line.3.horizontal.decrease.circle" catalog="system" id="T0H-o1-SVR">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="line.3.horizontal.decrease.circle" catalog="system" id="T0H-o1-SVR">
                             <connections>
                                 <action selector="filterResultsAction:" destination="BYZ-38-t0r" id="oKz-RO-vIy"/>
                             </connections>
@@ -175,7 +175,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gR4-zD-E0M">
-                        <barButtonItem key="rightBarButtonItem" image="heart" catalog="system" id="Yv5-T1-N40">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="Yv5-T1-N40">
                             <connections>
                                 <action selector="favoriteButtonAction:" destination="6WO-nZ-2w8" id="GkL-DD-0uC"/>
                             </connections>
@@ -268,14 +268,20 @@
         <!--Your Investment-->
         <scene sceneID="8zc-fp-swd">
             <objects>
-                <viewController id="NX4-Ae-Rhg" sceneMemberID="viewController">
+                <viewController id="NX4-Ae-Rhg" customClass="InvestmentsViewController" customModule="CryptoTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vvN-cy-2SC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="SCI-5e-cJ5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Investment" id="cxw-TZ-Gin"/>
+                    <navigationItem key="navigationItem" title="Your Investment" id="cxw-TZ-Gin">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus.square" catalog="system" id="7g8-bU-amR">
+                            <connections>
+                                <action selector="addInvestmentAction:" destination="NX4-Ae-Rhg" id="TZ6-nH-6al"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7dh-dp-zCi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -364,6 +370,7 @@
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
+        <image name="plus.square" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

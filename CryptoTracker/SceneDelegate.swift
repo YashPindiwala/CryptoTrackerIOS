@@ -25,6 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let nav2 = rootVc.viewControllers?[1] as? UINavigationController else {return}
         guard let view2 = nav2.topViewController as? FavoriteViewController else {return} // Favorite page
         view2.coreDataStack = coreDataStack
+        guard let nav3 = rootVc.viewControllers?[2] as? UINavigationController else {return}
+        guard let view3 = nav3.topViewController as? InvestmentsViewController else {return}
+        view3.coreDataStack = coreDataStack
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
