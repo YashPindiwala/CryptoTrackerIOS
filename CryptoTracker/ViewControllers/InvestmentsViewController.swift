@@ -15,16 +15,24 @@ class InvestmentsViewController: UIViewController{
     var data = [CoinList]()
     var picker: UIPickerView!
     var investmentsArray = [Investment]()
-    let ac = UIAlertController(title: "Add Investment.", message: "Add a new Investment.", preferredStyle: .alert)
+    var ac = UIAlertController(title: "Add Investment.", message: "Add a new Investment.", preferredStyle: .alert)
     var investmentDataSource: UITableViewDiffableDataSource<InvestmentSection,Investment>!
+    let currencyFormatter = NumberFormatter()
     
     //MARK: - Outlets
     @IBOutlet var investmentTableView: UITableView!
     
     //MARK: - Actions
     @IBAction func addInvestmentAction(_ sender: UIBarButtonItem) {
-        
+        present(ac, animated: true)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         fetchCoin()
+        picker = UIPickerView()
+        picker.delegate = self
+        picker.dataSource = self
         ac.addTextField(){
             field in
             field.placeholder = "Coin"
@@ -40,7 +48,6 @@ class InvestmentsViewController: UIViewController{
             field.placeholder = "Buy Price"
             field.keyboardType = .decimalPad
         }
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Save", style: .default){
             _ in
             guard let quantity = self.ac.textFields?[1].text else {return}
@@ -52,15 +59,13 @@ class InvestmentsViewController: UIViewController{
             newInvestment.price = price
             newInvestment.coin = self.data[self.picker.selectedRow(inComponent: 0)]
             newInvestment.coin_Id = self.data[self.picker.selectedRow(inComponent: 0)].coin_Id
-            self.coreDataStack.saveContext()
-            self.fetchInvestments()
+            self.addInvestment()
+            self.ac.textFields?[0].text = .none
+            self.ac.textFields?[1].text = .none
+            self.ac.textFields?[2].text = .none
         })
-        present(ac, animated: true)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let currencyFormatter = NumberFormatter()
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
         currencyFormatter.numberStyle = .currency
         
         investmentDataSource = UITableViewDiffableDataSource(tableView: investmentTableView){
@@ -68,15 +73,13 @@ class InvestmentsViewController: UIViewController{
             let newCell = tableView.dequeueReusableCell(withIdentifier: Identifiers.investmentCell.rawValue) as! CustomInvestmentTableViewCell
             newCell.coinSymbolLabel.text = item.coin.symbol
             newCell.coinQuantityLabel.text = "\(item.qnty)"
-            newCell.marketValueLabel.text = currencyFormatter.string(from: item.coin.price as NSNumber)
-            newCell.investmentValueLabel.text = "\(item.price)"
+            newCell.marketValueLabel.text = self.currencyFormatter.string(from: item.coin.price as NSNumber)
+            let investmentTotal = item.qnty * item.price
+            newCell.investmentValueLabel.text = self.currencyFormatter.string(from: investmentTotal as NSNumber)
+            let difference = investmentTotal - (item.coin.price * item.qnty)
+            newCell.differenceValueLabel.text = self.currencyFormatter.string(from: abs(difference) as NSNumber)
             return newCell
         }
-        
-        
-        picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,6 +95,10 @@ class InvestmentsViewController: UIViewController{
         snapshot.reloadItems(investmentsArray)
         investmentDataSource.apply(snapshot)
     }
+    func addInvestment(){
+        self.coreDataStack.saveContext()
+        self.fetchInvestments()
+    }
     func fetchInvestments(){
         print("Fetch Called")
         let fetchReq: NSFetchRequest<Investment> = Investment.fetchRequest()
@@ -104,10 +111,11 @@ class InvestmentsViewController: UIViewController{
     }
     func fetchCoin(){
         let fetchReq: NSFetchRequest<CoinList> = CoinList.fetchRequest()
+        fetchReq.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         do{
             data = try coreDataStack.managedContext.fetch(fetchReq)
         }catch{
-            print("error")
+            print("Error fetching coins: \(error.localizedDescription)")
         }
     }
 }
@@ -115,16 +123,23 @@ class InvestmentsViewController: UIViewController{
 extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
+        return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         data.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data[row].name
+        var fullString = data[row].name
+        if let price = currencyFormatter.string(from: data[row].price as NSNumber){
+            fullString.append(" (\(price))")
+        }
+        return fullString
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         ac.textFields?[0].text = data[row].name
+        if let price = currencyFormatter.string(from: data[row].price as NSNumber){
+            ac.textFields?[0].text?.append(" (\(price))")
+        }
         pickerView.resignFirstResponder()
     }
 }
