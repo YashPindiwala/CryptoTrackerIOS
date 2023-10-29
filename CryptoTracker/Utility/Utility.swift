@@ -21,5 +21,6 @@ enum FavoriteSection{
 }
 enum Identifiers: String{
     case coinListCell = "coinListItem"
-    case  favoriteCell = "favoriteCell"
+    case favoriteCell = "favoriteCell"
+    case investmentCell = "investmentCell"
 }

@@ -18,6 +18,7 @@
 		27692B172AEEF11F00D9CB5C /* CoinList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27692B152AEEF11F00D9CB5C /* CoinList+CoreDataProperties.swift */; };
 		27692B1E2AEEF5F200D9CB5C /* Investment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27692B1C2AEEF5F200D9CB5C /* Investment+CoreDataClass.swift */; };
 		27692B1F2AEEF5F200D9CB5C /* Investment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27692B1D2AEEF5F200D9CB5C /* Investment+CoreDataProperties.swift */; };
+		27692B212AEEFDD100D9CB5C /* CustomInvestmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27692B202AEEFDD100D9CB5C /* CustomInvestmentTableViewCell.swift */; };
 		27880B172AD096BE0092062B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B162AD096BE0092062B /* Utility.swift */; };
 		27880B192AD097EF0092062B /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B182AD097EF0092062B /* Coin.swift */; };
 		27880B1B2AD0A08A0092062B /* SetFetchTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27880B1A2AD0A08A0092062B /* SetFetchTime.swift */; };
@@ -43,6 +44,7 @@
 		27692B152AEEF11F00D9CB5C /* CoinList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoinList+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		27692B1C2AEEF5F200D9CB5C /* Investment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Investment+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		27692B1D2AEEF5F200D9CB5C /* Investment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Investment+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		27692B202AEEFDD100D9CB5C /* CustomInvestmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInvestmentTableViewCell.swift; sourceTree = "<group>"; };
 		27880B162AD096BE0092062B /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		27880B182AD097EF0092062B /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 		27880B1A2AD0A08A0092062B /* SetFetchTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFetchTime.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			children = (
 				2747FE252AD313E8002A08A5 /* CustomCoinTableViewCell.swift */,
 				271204B12AE4966D00ED9381 /* FavoriteListCollectionViewCell.swift */,
+				27692B202AEEFDD100D9CB5C /* CustomInvestmentTableViewCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				27880B172AD096BE0092062B /* Utility.swift in Sources */,
 				27BBE2842AD7904B001804BC /* CoreDataStack.swift in Sources */,
 				271204B42AE496B200ED9381 /* FavoriteViewController.swift in Sources */,
+				27692B212AEEFDD100D9CB5C /* CustomInvestmentTableViewCell.swift in Sources */,
 				27880B192AD097EF0092062B /* Coin.swift in Sources */,
 				27692B132AEDD61300D9CB5C /* InvestmentsViewController.swift in Sources */,
 				2715CE5F2AE3737D009651F9 /* FavoriteList+CoreDataClass.swift in Sources */,
