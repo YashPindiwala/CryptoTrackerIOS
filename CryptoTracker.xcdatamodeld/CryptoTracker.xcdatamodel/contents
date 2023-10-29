@@ -5,7 +5,9 @@
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="percent_change_24h" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="price" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="symbol" attributeType="String"/>
+        <relationship name="investment" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Investment" inverseName="coin" inverseEntity="Investment"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="symbol"/>
@@ -15,5 +17,11 @@
     <entity name="FavoriteList" representedClassName="FavoriteList" syncable="YES">
         <attribute name="coin_Id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="symbol" attributeType="String"/>
+    </entity>
+    <entity name="Investment" representedClassName="Investment" syncable="YES">
+        <attribute name="coin_Id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="price" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="qnty" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="coin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoinList" inverseName="investment" inverseEntity="CoinList"/>
     </entity>
 </model>

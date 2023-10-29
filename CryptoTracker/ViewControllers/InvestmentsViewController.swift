@@ -7,12 +7,13 @@
 
 import UIKit
 
-class InvestmentsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class InvestmentsViewController: UIViewController{
     
     //MARK: - Property
     var coreDataStack: CoreDataStack!
     var data = [CoinList]()
     var picker: UIPickerView!
+    var newInvestment: Investment!
     let ac = UIAlertController(title: "Add Investment.", message: "Add a new Investment.", preferredStyle: .alert)
     
     //MARK: - Outlets
@@ -36,13 +37,24 @@ class InvestmentsViewController: UIViewController, UIPickerViewDelegate, UIPicke
             field.keyboardType = .decimalPad
         }
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.addAction(UIAlertAction(title: "Save", style: .default))
+        ac.addAction(UIAlertAction(title: "Save", style: .default){
+            _ in
+            guard let quantity = self.ac.textFields?[1].text else {return}
+            guard let qnty = Double(quantity) else {return}
+            guard let amount = self.ac.textFields?[2].text else {return}
+            guard let price = Double(amount) else {return}
+            self.newInvestment.qnty = qnty
+            self.newInvestment.price = price
+            print(self.newInvestment.description)
+            self.coreDataStack.saveContext()
+        })
         present(ac, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        newInvestment = Investment(context: coreDataStack.managedContext)
         picker = UIPickerView()
         
         picker.delegate = self
@@ -57,7 +69,14 @@ class InvestmentsViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    //MARK: - Methods
+    func addInvestment(){
+        
+    }
+}
 
+extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
@@ -69,16 +88,8 @@ class InvestmentsViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         ac.textFields?[0].text = data[row].name
+        newInvestment.coin = data[row]
+        newInvestment.coin_Id = data[row].coin_Id
         pickerView.resignFirstResponder()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

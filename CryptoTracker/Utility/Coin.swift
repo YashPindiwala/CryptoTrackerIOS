@@ -19,6 +19,7 @@ struct Usd: Codable, Hashable{
     var USD: Change
 }
 struct Change: Codable, Hashable{
+    var price: Double
     var percent_change_24h: Double
 }
 
