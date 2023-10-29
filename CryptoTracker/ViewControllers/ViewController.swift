@@ -114,6 +114,7 @@ class ViewController: UIViewController {
                         insertCoin.name = coin.name
                         insertCoin.symbol = coin.symbol
                         insertCoin.percent_change_24h = coin.quote.USD.percent_change_24h
+                        insertCoin.price = coin.quote.USD.price
                     }
                     self.coreDataStack.saveContext()
                     self.fetchCoinsFromCoreData(sort: nil)

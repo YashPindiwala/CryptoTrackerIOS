@@ -19,7 +19,7 @@ extension Investment {
     @NSManaged public var price: Double
     @NSManaged public var qnty: Double
     @NSManaged public var coin_Id: Int32
-    @NSManaged public var coin: CoinList?
+    @NSManaged public var coin: CoinList
 
 }
 

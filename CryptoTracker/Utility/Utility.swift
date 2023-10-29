@@ -19,6 +19,9 @@ enum CoinDataSource{
 enum FavoriteSection{
     case favorite
 }
+enum InvestmentSection{
+    case investment
+}
 enum Identifiers: String{
     case coinListCell = "coinListItem"
     case favoriteCell = "favoriteCell"
