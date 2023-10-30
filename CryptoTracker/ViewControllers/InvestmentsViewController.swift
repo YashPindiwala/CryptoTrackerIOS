@@ -33,6 +33,7 @@ class InvestmentsViewController: UIViewController{
         picker = UIPickerView()
         picker.delegate = self
         picker.dataSource = self
+        investmentTableView.delegate = self
         ac.addTextField(){
             field in
             field.placeholder = "Coin"
@@ -141,5 +142,23 @@ extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             ac.textFields?[0].text?.append(" (\(price))")
         }
         pickerView.resignFirstResponder()
+    }
+}
+extension InvestmentsViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
+            _,_, completion in
+            guard let itemToDelete = self.investmentDataSource.itemIdentifier(for: indexPath) else {return}
+            self.coreDataStack.managedContext.delete(itemToDelete) // the item to delete
+            self.coreDataStack.saveContext() // saving to the memory
+            self.fetchInvestments() // reloading the changes
+            completion(true)
+        }
+        deleteAction.image = UIImage(systemName: "trash")
+        deleteAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
