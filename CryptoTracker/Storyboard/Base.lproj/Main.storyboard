@@ -278,14 +278,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="investmentCell" id="X6F-Dw-zUL" customClass="CustomInvestmentTableViewCell" customModule="CryptoTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="111.66666412353516"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="131.66667175292969"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X6F-Dw-zUL" id="4Kk-75-1RU">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="111.66666412353516"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="131.66667175292969"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KSU-lL-ZSU">
-                                                    <rect key="frame" x="10" y="0.0" width="373" height="111.66666666666667"/>
+                                                    <rect key="frame" x="10" y="10.000000000000007" width="373" height="111.66666666666669"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4TE-8x-77V">
                                                             <rect key="frame" x="0.0" y="0.0" width="373" height="26.666666666666668"/>
@@ -368,9 +368,9 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KSU-lL-ZSU" firstAttribute="top" secondItem="4Kk-75-1RU" secondAttribute="top" id="XEx-pQ-hlK"/>
+                                                <constraint firstItem="KSU-lL-ZSU" firstAttribute="top" secondItem="4Kk-75-1RU" secondAttribute="top" constant="10" id="XEx-pQ-hlK"/>
                                                 <constraint firstItem="KSU-lL-ZSU" firstAttribute="leading" secondItem="4Kk-75-1RU" secondAttribute="leading" constant="10" id="l0Y-c0-3ET"/>
-                                                <constraint firstAttribute="bottom" secondItem="KSU-lL-ZSU" secondAttribute="bottom" id="mZd-fN-VXH"/>
+                                                <constraint firstAttribute="bottom" secondItem="KSU-lL-ZSU" secondAttribute="bottom" constant="10" id="mZd-fN-VXH"/>
                                                 <constraint firstAttribute="trailing" secondItem="KSU-lL-ZSU" secondAttribute="trailing" constant="10" id="miW-ZK-seA"/>
                                             </constraints>
                                         </tableViewCellContentView>

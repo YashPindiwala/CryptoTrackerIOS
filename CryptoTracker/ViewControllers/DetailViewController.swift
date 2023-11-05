@@ -55,6 +55,18 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Methods
+    func showDialog(){
+        let confirmationView = CustomDialogConfirmation()
+        confirmationView.frame = view.bounds
+        confirmationView.isOpaque = false
+        
+        view.addSubview(confirmationView)
+        view.isUserInteractionEnabled = false
+        confirmationView.showDialog()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            confirmationView.removeFromSuperview()
+        })
+    }
     func fetchCoinsDescription(){
         var urlString = API.coinDescription.rawValue
         urlString = urlString.appending("\(Int32(passedCoin.coin_Id))")
@@ -118,6 +130,7 @@ class DetailViewController: UIViewController {
         print("This is the symbol: \(symbol)")
         favoriteCoin.symbol = symbol
         coreDataStack.saveContext()
+        showDialog()
     }
     
     func isAlreadyFavorite(coin_id id: Int32) -> Bool{
