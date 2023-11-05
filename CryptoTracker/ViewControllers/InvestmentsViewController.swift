@@ -46,6 +46,8 @@ class InvestmentsViewController: UIViewController{
         }
         ac.addTextField(){
             field in
+            field.leftView = UIImageView(image: UIImage(systemName: "dollarsign"))
+            field.leftViewMode = .always
             field.placeholder = "Buy Price"
             field.keyboardType = .decimalPad
         }
@@ -119,6 +121,47 @@ class InvestmentsViewController: UIViewController{
             print("Error fetching coins: \(error.localizedDescription)")
         }
     }
+    func showDialogAndModify(investment: Investment){
+        let alertC = UIAlertController(title: "Edit Coin", message: nil, preferredStyle: .alert)
+        alertC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertC.addTextField(){
+            textField in
+            textField.text = "\(investment.coin.name) (\(investment.coin.symbol))"
+            textField.isEnabled = false
+        }
+        alertC.addTextField(){
+            textField in
+            textField.text = "\(investment.qnty)"
+            textField.keyboardType = .decimalPad
+        }
+        alertC.addTextField(){
+            textField in
+            textField.leftView = UIImageView(image: UIImage(systemName: "dollarsign"))
+            textField.leftViewMode = .always
+            textField.text = "\(investment.price)"
+            textField.keyboardType = .decimalPad
+        }
+        alertC.addAction(UIAlertAction(title: "Save", style: .default){
+            _ in
+            let fetchReq: NSFetchRequest<Investment> = Investment.fetchRequest()
+            let predicate = NSPredicate(format: "coin_Id==%i", investment.coin_Id)
+            fetchReq.predicate = predicate
+            do{
+                let req = try self.coreDataStack.managedContext.fetch(fetchReq)
+                if let first = req.first{
+                    guard let qnty = alertC.textFields?[1].text, let quantity = Double(qnty) else {return}
+                    guard let amount = alertC.textFields?[2].text, let price = Double(amount) else {return}
+                    first.qnty = quantity
+                    first.price = price
+                }
+                self.coreDataStack.saveContext()
+                self.fetchInvestments()
+            }catch{
+                print("There was an error modifying")
+            }
+        })
+        present(alertC, animated: true)
+    }
 }
 
 extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
@@ -159,6 +202,8 @@ extension InvestmentsViewController: UITableViewDelegate{
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let itemToModify = self.investmentDataSource.itemIdentifier(for: indexPath) else {return}
+        showDialogAndModify(investment: itemToModify)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
