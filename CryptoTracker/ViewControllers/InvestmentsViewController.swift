@@ -121,6 +121,7 @@ class InvestmentsViewController: UIViewController{
             print("Error fetching coins: \(error.localizedDescription)")
         }
     }
+    // this method will show dialog with the current investments values and will allow edit and save changes to coredata
     func showDialogAndModify(investment: Investment){
         let alertC = UIAlertController(title: "Edit Coin", message: nil, preferredStyle: .alert)
         alertC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -143,22 +144,13 @@ class InvestmentsViewController: UIViewController{
         }
         alertC.addAction(UIAlertAction(title: "Save", style: .default){
             _ in
-            let fetchReq: NSFetchRequest<Investment> = Investment.fetchRequest()
-            let predicate = NSPredicate(format: "coin_Id==%i", investment.coin_Id)
-            fetchReq.predicate = predicate
-            do{
-                let req = try self.coreDataStack.managedContext.fetch(fetchReq)
-                if let first = req.first{
-                    guard let qnty = alertC.textFields?[1].text, let quantity = Double(qnty) else {return}
-                    guard let amount = alertC.textFields?[2].text, let price = Double(amount) else {return}
-                    first.qnty = quantity
-                    first.price = price
-                }
+            // we don't need to fetch the coin to modify it we can use the item from the datasource because it is the object/type of Investment which already has the context so we can just modify the values directly.
+                guard let qnty = alertC.textFields?[1].text, let quantity = Double(qnty) else {return}
+                guard let amount = alertC.textFields?[2].text, let price = Double(amount) else {return}
+                investment.qnty = quantity
+                investment.price = price
                 self.coreDataStack.saveContext()
                 self.fetchInvestments()
-            }catch{
-                print("There was an error modifying")
-            }
         })
         present(alertC, animated: true)
     }
@@ -203,7 +195,7 @@ extension InvestmentsViewController: UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let itemToModify = self.investmentDataSource.itemIdentifier(for: indexPath) else {return}
-        showDialogAndModify(investment: itemToModify)
+        showDialogAndModify(investment: itemToModify) // passing the investment which needs to be modified
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
