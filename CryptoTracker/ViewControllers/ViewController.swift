@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         coinListTableView.delegate = self
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        coinListTableView.addSubview(refreshControl)
+        coinListTableView.addSubview(refreshControl) // adding the refresh controller to the tableview
         
         navigationController?.navigationBar.prefersLargeTitles = true
         fetchTime = PreviousFetchTime()
@@ -92,6 +92,7 @@ class ViewController: UIViewController {
         coinDataSource.apply(snapshot)
     }
     
+    // method will fetch the list of coins and will save to the CoreData
     func fetchCoinsList(){
         print("Fetch from API")
         guard let url = URL(string: API.coinList.rawValue) else {return}
@@ -108,6 +109,7 @@ class ViewController: UIViewController {
                     let jsonDecoder = JSONDecoder()
                     let resultCoins = try jsonDecoder.decode(CoinListing.self, from: data)
                     self.coins = resultCoins.data
+                    // below code will create the new objects with the value from the api (data)
                     for coin in self.coins{
                         let insertCoin = CoinList(context: self.coreDataStack.managedContext)
                         insertCoin.coin_Id = Int32(coin.id)
@@ -116,9 +118,9 @@ class ViewController: UIViewController {
                         insertCoin.percent_change_24h = coin.quote.USD.percent_change_24h
                         insertCoin.price = coin.quote.USD.price
                     }
-                    self.coreDataStack.saveContext()
-                    self.fetchCoinsFromCoreData(sort: nil)
-                    self.fetchTime.setFetchTime()
+                    self.coreDataStack.saveContext()// saving all the new objects to the CoreData
+                    self.fetchCoinsFromCoreData(sort: nil) // after all the data is saved fetch all the coins
+                    self.fetchTime.setFetchTime() // setting the fetch time, it will be used to calculate if refresh is allowed
                 } catch DecodingError.valueNotFound(let error, let message){
                     print("Value is missing: \(error) \(message.debugDescription)")
                 } catch DecodingError.typeMismatch(let error, let message){
@@ -133,17 +135,17 @@ class ViewController: UIViewController {
         coinDataTask.resume()
     }
     
+    // This method will fetch all the coins from the CoreData, CoinList table
     func fetchCoinsFromCoreData(sort: NSSortDescriptor?){
-        print("Fetch from CoreData")
         let fetchRequest: NSFetchRequest<CoinList> = CoinList.fetchRequest()
-        if let sortDescriptor = sort{
+        if let sortDescriptor = sort{ // check if there are any kind of sorting required
             fetchRequest.sortDescriptors = [sortDescriptor]
         }
         do {
-            coinsListArray = try coreDataStack.managedContext.fetch(fetchRequest)
+            coinsListArray = try coreDataStack.managedContext.fetch(fetchRequest) // fetching all the Coins
             self.createSnapshot()
             DispatchQueue.main.async {
-                self.refreshControl.endRefreshing()
+                self.refreshControl.endRefreshing() // cancel's the refreshing indicator
             }
         } catch {
             print("There was an error trying to fetch the lists - \(error.localizedDescription)")
@@ -151,6 +153,7 @@ class ViewController: UIViewController {
         
     }
     
+    // this method will fetch the image and will apply the image to the Cell
     func fetchImage(coinId: Int, cell: CustomCoinTableViewCell){
         var fullURL = API.coinImage128.rawValue // url for getting image
         fullURL.append("\(coinId).png") // appending the name of the image to get image location on internet

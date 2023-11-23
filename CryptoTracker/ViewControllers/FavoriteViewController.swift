@@ -38,17 +38,19 @@ class FavoriteViewController: UIViewController {
         fetchFavoriteList()
     }
     
+    // thi will be called when the long press is detected
     @objc func longPressHappened(gesture : UILongPressGestureRecognizer!){
         
-        let tapLocation = gesture.location(in: self.favoriteCollectionView)
-        guard let indexPath = self.favoriteCollectionView.indexPathForItem(at: tapLocation) else {return}
-        guard let favoriteCoinToDelete = self.favoriteDataSource.itemIdentifier(for: indexPath) else {return}
+        let tapLocation = gesture.location(in: self.favoriteCollectionView) // getting the coordinates
+        guard let indexPath = self.favoriteCollectionView.indexPathForItem(at: tapLocation) else {return} // getting the index for the item at coordinates
+        guard let favoriteCoinToDelete = self.favoriteDataSource.itemIdentifier(for: indexPath) else {return} // getting the item from the datasource using index
         
         if gesture.state == .began{
+            // will ask user for delete confirmation
             let ac = UIAlertController(title: "Action!", message: "Are you sure you want to delete?", preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "Delete", style: .destructive){
                 _ in
-                self.deleteFavoriteCoin(item: favoriteCoinToDelete)
+                self.deleteFavoriteCoin(item: favoriteCoinToDelete) // delete the passed item
             })
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             ac.popoverPresentationController?.sourceView = favoriteCollectionView.cellForItem(at: indexPath)
@@ -66,6 +68,7 @@ class FavoriteViewController: UIViewController {
         favoriteDataSource.apply(snapshot)
     }
     
+    // fetch all the favorites from the FavoriteList in (CoreData)
     func fetchFavoriteList(){
         print("Fetch called")
         let fetchRequest: NSFetchRequest<FavoriteList> = FavoriteList.fetchRequest()
@@ -99,6 +102,7 @@ class FavoriteViewController: UIViewController {
         imageTask.resume()// resuming the imageTask, as it is by default in postponed state.
     }
     
+    // this method will delete the passed FavoriteList(Item)
     func deleteFavoriteCoin(item: FavoriteList){
         coreDataStack.managedContext.delete(item)
         coreDataStack.saveContext()
@@ -118,7 +122,8 @@ extension FavoriteViewController: UICollectionViewDelegate,UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if self.view.frame.size.width <= 400 {
+        // show 2 or 4 cells depending on the width of the device
+        if self.view.frame.size.width <= 400 { // 2 cells
             let phoneWidth = view.safeAreaLayoutGuide.layoutFrame.width
             let cellsInRow: CGFloat = 2.0
             let totalSpacing:CGFloat = cellsInRow * 10 * 2
@@ -127,7 +132,7 @@ extension FavoriteViewController: UICollectionViewDelegate,UICollectionViewDeleg
                     return CGSize(width: 0, height: 0) // Replace with a valid minimum size
                 }
             return CGSize(width: itemWidth, height: itemWidth/2)
-        }else{
+        }else{ // 4 cells
             let phoneWidth = view.safeAreaLayoutGuide.layoutFrame.width
             let cellsInRow: CGFloat = 4.0
             let totalSpacing:CGFloat = cellsInRow * 10 * 2

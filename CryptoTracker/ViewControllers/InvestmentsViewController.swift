@@ -29,7 +29,8 @@ class InvestmentsViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCoin()
+        fetchCoin() // fetch coins which will be used to displa coins in the UIPickerView()
+        /* _____ START of setting up the components for the alertcontroller _____ */
         picker = UIPickerView()
         picker.delegate = self
         picker.dataSource = self
@@ -39,11 +40,13 @@ class InvestmentsViewController: UIViewController{
             field.placeholder = "Coin"
             field.inputView = self.picker
         }
+        // input for quantity only decimal
         ac.addTextField(){
             field in
             field.placeholder = "Quantity"
             field.keyboardType = .decimalPad
         }
+        // input for price only decimal
         ac.addTextField(){
             field in
             field.leftView = UIImageView(image: UIImage(systemName: "dollarsign"))
@@ -68,6 +71,7 @@ class InvestmentsViewController: UIViewController{
             self.ac.textFields?[2].text = .none
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        /* _____ END of setting up the components for the alertcontroller _____ */
         
         currencyFormatter.numberStyle = .currency
         
@@ -77,9 +81,9 @@ class InvestmentsViewController: UIViewController{
             newCell.coinSymbolLabel.text = item.coin.symbol
             newCell.coinQuantityLabel.text = "\(item.qnty)"
             newCell.marketValueLabel.text = self.currencyFormatter.string(from: item.coin.price as NSNumber)
-            let investmentTotal = item.qnty * item.price
+            let investmentTotal = item.qnty * item.price // calculation to find the total mamount of investment
             newCell.investmentValueLabel.text = self.currencyFormatter.string(from: investmentTotal as NSNumber)
-            let difference = investmentTotal - (item.coin.price * item.qnty)
+            let difference = investmentTotal - (item.coin.price * item.qnty) // calculation for finding difference
             newCell.differenceValueLabel.text = self.currencyFormatter.string(from: abs(difference) as NSNumber)
             return newCell
         }
@@ -102,16 +106,18 @@ class InvestmentsViewController: UIViewController{
         self.coreDataStack.saveContext()
         self.fetchInvestments()
     }
+    // fetch all the investments
     func fetchInvestments(){
         print("Fetch Called")
         let fetchReq: NSFetchRequest<Investment> = Investment.fetchRequest()
         do{
             investmentsArray = try coreDataStack.managedContext.fetch(fetchReq)
-            createSnapshot()
+            createSnapshot() // refresh the data for the table view
         }catch{
             print("There was an error loading Investments: \(error.localizedDescription)")
         }
     }
+    // this method will fetch all coins which will be used by the PickerView
     func fetchCoin(){
         let fetchReq: NSFetchRequest<CoinList> = CoinList.fetchRequest()
         fetchReq.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
@@ -144,7 +150,7 @@ class InvestmentsViewController: UIViewController{
         }
         alertC.addAction(UIAlertAction(title: "Save", style: .default){
             _ in
-            // we don't need to fetch the coin to modify it we can use the item from the datasource because it is the object/type of Investment which already has the context so we can just modify the values directly.
+            // we don't need to fetch the coin to modify it, we can use the coin from the datasource because it is of the object/type of Investment which already has the context so we can just modify the values directly.
                 guard let qnty = alertC.textFields?[1].text, let quantity = Double(qnty) else {return}
                 guard let amount = alertC.textFields?[2].text, let price = Double(amount) else {return}
                 investment.qnty = quantity
@@ -165,6 +171,7 @@ extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         data.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        // creating the title to display in the UIPickerView
         var fullString = data[row].name
         if let price = currencyFormatter.string(from: data[row].price as NSNumber){
             fullString.append(" (\(price))")
@@ -172,6 +179,7 @@ extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         return fullString
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // automatically setting the values to the input field whenever the coin is selected in UIPickerView
         ac.textFields?[0].text = data[row].name
         if let price = currencyFormatter.string(from: data[row].price as NSNumber){
             ac.textFields?[0].text?.append(" (\(price))")
@@ -180,6 +188,7 @@ extension InvestmentsViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     }
 }
 extension InvestmentsViewController: UITableViewDelegate{
+    // swipe to delete
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){
             _,_, completion in

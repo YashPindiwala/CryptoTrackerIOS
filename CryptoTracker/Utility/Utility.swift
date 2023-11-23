@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// All the URL'S for the app
 enum API: String{
     case key = "669ab313-c575-4483-8bb1-16f1a4cc1410"
     case httpHeader = "X-CMC_PRO_API_KEY"
@@ -22,6 +24,7 @@ enum FavoriteSection{
 enum InvestmentSection{
     case investment
 }
+// all the identifiers for various cells
 enum Identifiers: String{
     case coinListCell = "coinListItem"
     case favoriteCell = "favoriteCell"

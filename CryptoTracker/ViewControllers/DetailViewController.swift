@@ -21,10 +21,10 @@ class DetailViewController: UIViewController {
     
     //MARK: - Actions
     @IBAction func favoriteButtonAction(_ sender: UIBarButtonItem) {
-        if !isAlreadyFavorite(coin_id: passedCoin.coin_Id){
-            addToFavorite(coin_id: passedCoin.coin_Id, symbol: passedCoin.symbol)
-            favoriteButton.image = UIImage(systemName: "heart.fill")
-        } else {
+        if !isAlreadyFavorite(coin_id: passedCoin.coin_Id){ // check if the coin is not favorited
+            addToFavorite(coin_id: passedCoin.coin_Id, symbol: passedCoin.symbol) // adding the coin to favorite
+            favoriteButton.image = UIImage(systemName: "heart.fill") // and setting the image to filled heart
+        } else { // when the coin already favorited
             let ac = UIAlertController(title: "Already Favorited!", message: "\(passedCoin.name) is already in favorites.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .cancel))
             present(ac, animated: true)
@@ -37,6 +37,7 @@ class DetailViewController: UIViewController {
         guard let passedCoin = passedCoin else {return}
         navigationItem.title = passedCoin.name
         
+        // checking if the coin is favorited or not and setting the image according to ti
         if isAlreadyFavorite(coin_id: passedCoin.coin_Id){
             favoriteButton.image = UIImage(systemName: "heart.fill")
         } else {
@@ -84,7 +85,7 @@ class DetailViewController: UIViewController {
                     
                     let cryptoResponse = try JSONDecoder().decode(CryptoResponse.self, from: data)
                     guard let jsonString = cryptoResponse.data["\(self.passedCoin.coin_Id)"] else {return}
-                    self.modifyCoin(for: self.passedCoin.coin_Id, with: jsonString.description) // modifying data for particu;ar coin
+                    self.modifyCoin(for: self.passedCoin.coin_Id, with: jsonString.description) // modifying data for particular coin
                     self.fetchCoinDescriptionAndDisplay(for: self.passedCoin.coin_Id) // getting the coin description and displaying in the textview
                 } catch DecodingError.valueNotFound(let error, let message){
                     print("Value is missing: \(error) \(message.debugDescription)")
@@ -133,6 +134,7 @@ class DetailViewController: UIViewController {
         showDialog()
     }
     
+    // this method will return [true] if the coin is favorited and [false] if not
     func isAlreadyFavorite(coin_id id: Int32) -> Bool{
         let fetchRequest: NSFetchRequest<FavoriteList> = FavoriteList.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id)
@@ -147,6 +149,7 @@ class DetailViewController: UIViewController {
         return false
     }
     
+    // this method will return [true] if the description for the coin is available in CoreData and [false] if not
     func checkIfDescAvailable(for id: Int32) -> Bool{
         let fetchRequest : NSFetchRequest<CoinList> = CoinList.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id)
@@ -162,15 +165,15 @@ class DetailViewController: UIViewController {
         }
         return false
     }
-    
+    // this method will be called if description is already available for the coin in CoreData
     func fetchCoinDescriptionAndDisplay(for id: Int32){
         let fetchRequest : NSFetchRequest<CoinList> = CoinList.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id)
+        fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id) // searching parameter for the selected coin
         do{
             let request = try coreDataStack.managedContext.fetch(fetchRequest)
-            if let coinDesc = request.first{
+            if let coinDesc = request.first{ // get the first coin
                 DispatchQueue.main.async {
-                    self.coinDescriptionTextView.text = coinDesc.desc
+                    self.coinDescriptionTextView.text = coinDesc.desc // set the description to the textview
                 }
             }
         }catch{
@@ -180,26 +183,15 @@ class DetailViewController: UIViewController {
     
     func modifyCoin(for id: Int32, with description: String){
         let fetchRequest : NSFetchRequest<CoinList> = CoinList.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id)
+        fetchRequest.predicate = NSPredicate(format: "coin_Id == %i", id) // searching the coin with particular ID
         do{
             let request = try coreDataStack.managedContext.fetch(fetchRequest)
             if let coinToUpdate = request.first{
-                coinToUpdate.desc = description
+                coinToUpdate.desc = description // updating the description for the selected coin
             }
-            coreDataStack.saveContext()
+            coreDataStack.saveContext() // saving the modified description
         }catch{
             print("There was an error getting the object: \(error.localizedDescription)")
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

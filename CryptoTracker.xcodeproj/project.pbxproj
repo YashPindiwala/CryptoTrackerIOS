@@ -135,8 +135,7 @@
 			children = (
 				27045E0A2AD997BB005C5491 /* ViewControllers */,
 				27C0405B2AD78F050022DAA7 /* CoreData */,
-				27BCA2882AC6F5D700185204 /* AppDelegate.swift */,
-				27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */,
+				27F721362B044D5A0021412D /* Delegates */,
 				27880B1C2AD0A7AE0092062B /* Utility */,
 				2747FE282AD314EE002A08A5 /* Storyboard */,
 				2747FE272AD314E0002A08A5 /* CustomCells */,
@@ -159,6 +158,15 @@
 				27BBE2832AD7904B001804BC /* CoreDataStack.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		27F721362B044D5A0021412D /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				27BCA2882AC6F5D700185204 /* AppDelegate.swift */,
+				27BCA28A2AC6F5D700185204 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
